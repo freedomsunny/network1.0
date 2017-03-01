@@ -261,28 +261,6 @@ def rule_vm(competition_id, step_flag, vm_ipaddr, host_ip, vlan_ID, net_wrok, ne
                  competition_id=competition_id, step_flag=step_flag, command_scene=None, commands_type='init')
 
 
-# def rule_init(competition_id, step_flag,  host_ip, vlan_ID):   #针对每个拓扑进行策略创建(循环每个拓扑)
-#     try:
-#         add_commands = ['ovs-ofctl add-flow %s in_port=%d,dl_vlan=%d,actions=strip_vlan,output:LOCAL' % (router_bridge, ConfigParameter.OvsServer_up_port_ID, vlan_ID)
-#                        ]
-#         del_commands = ['ovs-ofctl --strict del-flows %s in_port=%d,dl_vlan=%d' % (router_bridge, ConfigParameter.OvsServer_up_port_ID, vlan_ID)
-#                        ]
-#     except Exception, e:
-#         print str(e)
-#         LogExceptionHelp.logException(u'大赛%s场景%d,初始化规则添加命令构建失败，%s' % (competition_id, step_flag, str(e)))
-#         return None
-#     #添加规则入库
-#     command_type = 'init'
-#     action = 'add'
-#     add_command = ' && '.join(add_commands)
-#     SQL_command = "insert into %s (uid,commands,competition_id,step_flag,host_ip,action,command_type) values ('%s','%s','%s',%d,'%s','%s','%s');" % (rule_tableName, str(uuid.uuid1()), add_command, competition_id, step_flag, host_ip, action,command_type)
-#     sql_insert(SQL_command)
-#
-#     #删除规则入库
-#     action = 'del'
-#     del_command = ' && '.join(del_commands)
-#     SQL_command = "insert into %s (uid,commands,competition_id,step_flag,host_ip,action,command_type) values ('%s','%s','%s',%d,'%s','%s','%s');" % (rule_tableName, str(uuid.uuid1()), del_command, competition_id, step_flag, host_ip, action,command_type)
-#     sql_insert(SQL_command)
 def rule_compute(competition_id, step_flag, host_ip, vm_interface_name, new_vlan_ID,
                  vmname):  # 场景3的时候调用，循环每个虚拟机,阶段ID填4，host_ip填计算节点的IP，new_vlan_ID传新vlan
     try:
